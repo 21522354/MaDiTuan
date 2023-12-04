@@ -1,0 +1,48 @@
+﻿<Window x:Class="MaDiTuan.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaDiTuan"
+        mc:Ignorable="d"
+        Icon="\images\icon_chess.png"
+        Title="Mã đi tuần" Height="800" Width="1420"
+        WindowStartupLocation="CenterScreen"
+        Background="AntiqueWhite"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                Content="Bắt đầu" FontSize="25"
+                HorizontalAlignment="Left" Padding="10"
+                Margin="50 10 50 10" Click="BatDau_Click"
+                />
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <TextBlock VerticalAlignment="Center" 
+                           Text="Số trường hợp mã có thể đi là: " 
+                           FontSize="25"   />
+                <TextBlock VerticalAlignment="Center" Name="tbSoTruongHop"
+                           FontSize="25" Margin="10 0 100 0"  />
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="25" Text="Minh họa cách đi số: "/>
+                        <TextBox Name="tb_cachDi" Width="60" Margin="0" FontSize="20"/>
+                    </StackPanel>
+                    <Button Margin="40 10 40 0" FontSize="20" Content="Xác nhận" Click="MinhHoa_click"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" >
+            <Grid Name="grd_banCo" Width="700" Height="700" Background="AliceBlue"/>
+        </Grid>
+
+    </Grid>
+</Window>
