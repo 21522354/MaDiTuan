@@ -19,6 +19,8 @@ namespace MaDiTuan
 {
     public partial class MainWindow : Window
     {
+        private const int MaxSolutions = 500;
+        private const int MaxSolutions8 = 4;
         public int KichThuoc { get; set; }
         public int ToaDoX { get; set; }
         public int ToaDoY { get; set; }
@@ -55,29 +57,43 @@ namespace MaDiTuan
         private void ChayThuatToan()
         {
             A = new int[KichThuoc][];
-
             for (int i = 0; i < KichThuoc; i++)
             {
                 A[i] = new int[KichThuoc];
             }
+
             A[ToaDoX][ToaDoY] = 1;
             diChuyen(2, ToaDoX, ToaDoY);
         }
         private void diChuyen(int i, int x, int y)
         {
+            if ((KichThuoc != 8 && tapDapAn.Count >= MaxSolutions) || (KichThuoc == 8 && tapDapAn.Count >= MaxSolutions8))
+            {
+                return; // Đã đạt đến số lượng cách di chuyển tối đa
+            }
+
             for (int j = 0; j < 8; j++)
             {
                 int x1 = x + X[j];
                 int y1 = y + Y[j];
+
                 if (x1 >= 0 && x1 < KichThuoc && y1 >= 0 && y1 < KichThuoc && A[x1][y1] == 0)
                 {
                     A[x1][y1] = i;
+
                     if (i == KichThuoc * KichThuoc)
                     {
                         ghiNhanDapAn();
+                        if ((KichThuoc != 8 && tapDapAn.Count >= MaxSolutions) || (KichThuoc == 8 && tapDapAn.Count >= MaxSolutions8))
+                        {
+                            return; // Đã đạt đến số lượng cách di chuyển tối đa
+                        }
                     }
                     else
+                    {
                         diChuyen(i + 1, x1, y1);
+                    }
+
                     A[x1][y1] = 0;
                 }
             }
@@ -190,6 +206,8 @@ namespace MaDiTuan
             img.Source = new BitmapImage(new Uri("images/icon_chess.png", UriKind.Relative));
             BanCo[ToaDoX][ToaDoY].Children.Add(img);
             BanCo[ToaDoX][ToaDoY].DaDiQua = true;
+
+            sp_BuocDi.Children.Clear();
         }
 
         private async void MinhHoaMa(int truongHopI)
@@ -201,6 +219,7 @@ namespace MaDiTuan
                 ChuyenToaDoMa(i, dapAnThuI);
                 i++;
                 await Task.Delay(1000);
+
             }
         }
 
@@ -218,6 +237,13 @@ namespace MaDiTuan
                         img.VerticalAlignment = VerticalAlignment.Stretch;
                         img.Source = new BitmapImage(new Uri("images/icon_chess.png", UriKind.Relative));
                         BanCo[i][j].Children.Add(img);
+
+                        TextBlock textBlock = new TextBlock();
+                        textBlock.Text = "Bước " + k + " ( " + i + ", " + j + " )";
+                        textBlock.HorizontalAlignment = HorizontalAlignment.Left;
+                        textBlock.FontSize = 20;
+                        textBlock.Margin = new Thickness(20, 5, 0, 0);
+                        sp_BuocDi.Children.Add(textBlock);
 
                         await Task.Delay(1000);
                         BanCo[i][j].Children.Clear();

@@ -26,11 +26,18 @@
                 Margin="50 10 50 10" Click="BatDau_Click"
                 />
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <TextBlock VerticalAlignment="Center" 
-                           Text="Số trường hợp mã có thể đi là: " 
-                           FontSize="25"   />
-                <TextBlock VerticalAlignment="Center" Name="tbSoTruongHop"
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" 
+           Text="Số trường hợp mã có thể đi là: " 
+           FontSize="25"   />
+                        <TextBlock VerticalAlignment="Top" Name="tbSoTruongHop"
                            FontSize="25" Margin="10 0 100 0"  />
+                    </StackPanel>
+                    <TextBlock VerticalAlignment="Center" 
+           Text="(Chỉ chạy tối đa được bàn cờ 7x7 và chỉ lấy được 500 cách đi đầu tiên)" 
+           FontSize="18"   />
+                </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="25" Text="Minh họa cách đi số: "/>
@@ -41,7 +48,18 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0" >
-            <Grid Name="grd_banCo" Width="700" Height="700" Background="AliceBlue"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" HorizontalAlignment="Left" Margin="200 0 0 0" Name="grd_banCo" Width="700" Height="700" Background="AliceBlue"/>
+            <Grid Grid.Column="1" Margin="200 0 0 0">
+                <ScrollViewer>
+                    <StackPanel Name="sp_BuocDi" Orientation="Vertical">
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Grid>
 
     </Grid>
